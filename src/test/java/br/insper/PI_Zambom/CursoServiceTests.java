@@ -30,28 +30,23 @@ public class CursoServiceTests {
 	@Mock
 	private UsuarioService usuarioService;
 
-	// ***** TEST salvar(Curso curso) *****
+
 
 	@Test
 	public void testSalvarWhenProfessorExists() {
-		// Preparação
 		Curso curso = new Curso();
 		curso.setCPFprofessor("12345678901");
-		curso.setAlunosCpf(null); // Para testar quando alunosCpf é null
+		curso.setAlunosCpf(null);
 
-		// Mock para quando o professor existe
 		RetornarUsuarioDTO professorDTO = new RetornarUsuarioDTO();
 		professorDTO.setCpf("12345678901");
 		ResponseEntity<RetornarUsuarioDTO> responseEntity = new ResponseEntity<>(professorDTO, HttpStatus.OK);
 		Mockito.when(usuarioService.getUsuario("12345678901")).thenReturn(responseEntity);
 
-		// Mock do cursoRepository.save
 		Mockito.when(cursoRepository.save(Mockito.any(Curso.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-		// Chamada do código testado
 		RetornarCursoDTO result = cursoService.salvar(curso);
 
-		// Verificação dos resultados
 		Assertions.assertNotNull(result);
 		Assertions.assertNotNull(result.getId());
 		Assertions.assertEquals("12345678901", result.getCPFprofessor());
@@ -62,25 +57,21 @@ public class CursoServiceTests {
 
 	@Test
 	public void testSalvarWhenProfessorDoesNotExist() {
-		// Preparação
+
 		Curso curso = new Curso();
 		curso.setCPFprofessor("12345678901");
 
-		// Mock para quando o professor não existe
 		ResponseEntity<RetornarUsuarioDTO> responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		Mockito.when(usuarioService.getUsuario("12345678901")).thenReturn(responseEntity);
 
-		// Chamada do código testado e verificação
 		Assertions.assertThrows(ProfessorNaoEncontradoException.class, () -> {
 			cursoService.salvar(curso);
 		});
 	}
 
-	// ***** TEST listar(String nome) *****
 
 	@Test
 	public void testListarWhenNomeIsNull() {
-		// Preparação
 		List<Curso> cursos = new ArrayList<>();
 		Curso curso = new Curso();
 		curso.setId("curso-uuid");
@@ -89,10 +80,8 @@ public class CursoServiceTests {
 
 		Mockito.when(cursoRepository.findAll()).thenReturn(cursos);
 
-		// Chamada do código testado
 		List<RetornarCursoDTO> result = cursoService.listar(null);
 
-		// Verificação dos resultados
 		Assertions.assertEquals(1, result.size());
 		Assertions.assertEquals("curso-uuid", result.get(0).getId());
 		Assertions.assertEquals("Matemática", result.get(0).getNome());

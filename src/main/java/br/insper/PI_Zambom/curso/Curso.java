@@ -12,7 +12,6 @@ public class Curso {
 	private String nome;
 	private String descricao;
 	private int MaxAlunos;
-	@JsonProperty("cpfprofessor")
 	private String CPFprofessor;
 	private List<String> alunosCpf;
 
