@@ -1,5 +1,6 @@
 package br.insper.PI_Zambom.curso;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
 import java.util.List;
@@ -11,6 +12,7 @@ public class Curso {
 	private String nome;
 	private String descricao;
 	private int MaxAlunos;
+	@JsonProperty("cpfprofessor")
 	private String CPFprofessor;
 	private List<String> alunosCpf;
 
