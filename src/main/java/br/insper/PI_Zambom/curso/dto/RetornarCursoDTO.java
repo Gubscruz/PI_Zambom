@@ -9,17 +9,16 @@ public class RetornarCursoDTO {
 	private String nome;
 	private String descricao;
 	private int maxAlunos;
-	private String professorCpf;
+	private String CPFprofessor;
 	private List<String> alunosCpf;
 
-	public RetornarCursoDTO fromCurso(Curso curso) {
-		RetornarCursoDTO dto = new RetornarCursoDTO();
-		dto.setId(curso.getId());
-		dto.setNome(curso.getNome());
-		dto.setDescricao(curso.getDescricao());
-		dto.setMaxAlunos(curso.getMaxAlunos());
-		dto.setProfessorCpf(curso.getCPFprofessor());
-		return dto;
+	public RetornarCursoDTO(Curso curso) {
+		this.id = curso.getId();
+		this.nome = curso.getNome();
+		this.descricao = curso.getDescricao();
+		this.CPFprofessor = curso.getCPFprofessor();
+		this.maxAlunos = curso.getMaxAlunos();
+		this.alunosCpf = curso.getAlunosCpf();
 	}
 
 	public String getId() {
@@ -54,12 +53,12 @@ public class RetornarCursoDTO {
 		this.maxAlunos = maxAlunos;
 	}
 
-	public String getProfessorCpf() {
-		return professorCpf;
+	public String getCPFprofessor() {
+		return CPFprofessor;
 	}
 
-	public void setProfessorCpf(String professorCpf) {
-		this.professorCpf = professorCpf;
+	public void setCPFprofessor(String professorCpf) {
+		this.CPFprofessor = professorCpf;
 	}
 
 	public List<String> getAlunosCpf() {
@@ -70,7 +69,3 @@ public class RetornarCursoDTO {
 		this.alunosCpf = alunosCpf;
 	}
 }
-
-
-
-	// Método estático para converter de Curso para RetornarCursoDTO

@@ -3,7 +3,7 @@ package br.insper.PI_Zambom.curso;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import br.insper.PI_Zambom.curso.dto.RetornarCursoDTO;
 import java.util.List;
 
 @RestController
@@ -13,20 +13,20 @@ public class CursoController {
 	private CursoService cursoService;
 
 	@GetMapping("/cursos")
-	public ResponseEntity<List<Curso>> listarCursos(@RequestParam(required = false) String nome) {
-		List<Curso> cursos = cursoService.listar(nome);
+	public ResponseEntity<List<RetornarCursoDTO>> listarCursos(@RequestParam(required = false) String nome) {
+		List<RetornarCursoDTO> cursos = cursoService.listar(nome);
 		return ResponseEntity.ok(cursos);
 	}
 
 	@PostMapping("/cursos/{idCurso}/alunos")
-	public ResponseEntity<Curso> adicionarAluno(@PathVariable String idCurso, @RequestBody String cpfAluno) {
-		Curso curso = cursoService.addAluno(idCurso, cpfAluno);
-		return ResponseEntity.ok(curso);
+	public ResponseEntity<RetornarCursoDTO> adicionarAluno(@PathVariable String idCurso, @RequestBody String cpfAluno) {
+		RetornarCursoDTO cursoAtualizado = cursoService.addAluno(idCurso, cpfAluno);
+		return ResponseEntity.ok(cursoAtualizado);
 	}
 
 	@PostMapping("/cursos")
-	public ResponseEntity<Curso> criarCurso(@RequestBody Curso curso) {
-		Curso novoCurso = cursoService.salvar(curso);
+	public ResponseEntity<RetornarCursoDTO> criarCurso(@RequestBody Curso curso) {
+		RetornarCursoDTO novoCurso = cursoService.salvar(curso);
 		return ResponseEntity.ok(novoCurso);
 	}
 }

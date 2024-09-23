@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RetornarUsuarioDTO {
+
 	private String nome;
 	private String cpf;
 
